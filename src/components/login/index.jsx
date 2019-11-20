@@ -32,7 +32,7 @@ const {Item} = Form;
    handlesubmit=(event)=>{
      event.preventDefault();
      //获取表单错误与信息的方法  form的属性、、
-     //注意点 文档上写的是方法API 使用的时候直接调用传参  避孕套写成=（参数1，餐数）=>{}  这不是在定义函数
+     //注意点 文档上写的是方法API 使用的时候直接调用传参  避免写成=（参数1，餐数）=>{}  这不是在定义函数
      this.props.form.validateFields((err,values)=>{
        //err  错误的信息
        //values  获取的值 是一个对象  axios 正好需要一个key value 的对象参数
