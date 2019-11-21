@@ -11,3 +11,6 @@ const middleware=process.env.NOOD_ENV==='development'?composeWithDevTools(applyM
 
 
 export default createStore(reducer,middleware)
+
+
+//这里reducer  目前是 reducer内部传出的user  是一个包含数据的对象   在组建中使用 {user：{token}}  类似的解构获取数据

@@ -19,89 +19,7 @@
   let token='';
 
 
-  //  axiosInstance.interceptors.request.use(
-  //    //对请求的处理
-  //     (config)=>{
-  //       if(config.method==='post'){
-  //         //这里通过属性的方式对headers进行设置  假设是post 请求就更改
-  //           //在post 请求中 正常的data对象要改造成凭借的字符串 且content-type也可能按照需求更改
-  //         config.headers['content-type']='application/x-www-form-urlencoded';
-
-  //          const keys=  Object.keys(config.data);//这里创建了一个有config.data内的属性名组成的数组
-  //           config.data= keys.reduce((prev,key)=>{
-  //             const value=config.data[key]
-  //              prev += `&${key}=${value}`;
-  //              return prev
-  //           },'').substring(1);
-
-  //       }
-  //       //get 请求根据文档是需要用到一个token 数据的 authorization: 'Bearer ' + token  是设置在headers 内部的
-  //       if(token){
-  //         //假设是GET请求  通过属性shehzi 
-  //         config.headers.authorization = 'Bearer '+ token;
-  //       }
-  //       return config;
-  //     }
-       
-  //  )
-// 对返回结果的处理方式
-
-// axiosInstance.interceptors.request.use(
-//      (response)=>{
-//         if(response.data.status===0){
-//           //返回响应成功状态
-//            return response.data.data
-//         }else{
-//           //返回响应  失败状态
-//           alert(response.data.msg);
-//           return Promise.reject(response.data.msg)//让catch 发挥运作
-//         }
-//      },
-
-
-//      (error)=>{
-
-//        /*
-//           服务器没开 Network Error ---> error.message
-//           请求超时 timeout of 1000ms exceeded 
-//           没网 Network Error
-//           error.response 如果有值，服务器返回了响应 / 如果没有值，服务器没有返回响应
-//           error.response.status 401 没有携带token
-//           401 token过期或无效
-//           404 资源找不到
-//           403 禁止访问
-//           500 服务器内部错误
-//         */
-//         const codemessage={
-//           401:401,
-//           403:403,
-//           404:404,
-//           500:500
-//         }
-         
-//         let errmessage='';
-
-//         if(err.response){
-//           errmessage=codemessage[err.response.status]
-//         }else {
-//           //index of  用于查找是否存在查找的字符  存在返回0
-//           if (error.message.indexOf('Network Error') !== -1) {
-//             errormessage = '请检查网络连接';
-//           } else if (error.message.indexOf('timeout') !== -1) {
-//             errormessage = '网络太卡了，请连上wifi重试';
-//           } else {
-//             errormessage = '未知错误';
-//           }
-//         }
-//         // console.dir(error);
-//         alert(errormessage);
-//         return Promise.reject(errormessage);
-//      }
-
-     
-// )
-
- //上面一段有地方异常
+  
 
 //axios 的实例对象
 const axiosInstance =axios.create({
@@ -161,7 +79,7 @@ const axiosInstance =axios.create({
           500 服务器内部错误
         */
         codeMessage 
-       const codeMesage={
+        const codeMesage={
          401:401,
          403:403,
          404:404,
@@ -184,19 +102,32 @@ const axiosInstance =axios.create({
 
       }
    )
-   btn1.onclick=function(){
-     axiosInstance({
+//为了增加复用  将其封装为函数
+   const  login=(username,password)=>{
+     return  axiosInstance({
       method:'POST',
       url:'/login',
       data:{
-        username:'admin',
-        password:'admin'
-      },
-      // data:'username=admin&password=admin',
-      // headers:{
-      //   'content-type':'application/x-www-form-urlencoded'
-      // }
+        username:username,
+        password:password
+      }
      })
+    }
+
+   btn1.onclick=function(){
+    //  axiosInstance({
+    //   method:'POST',
+    //   url:'/login',
+    //   data:{
+    //     username:'admin',
+    //     password:'admin'
+    //   },
+    //   // data:'username=admin&password=admin',
+    //   // headers:{
+    //   //   'content-type':'application/x-www-form-urlencoded'
+    //   // }
+    //  })
+     login('admin','admin')
      .then ((response)=>{
       console.log(response.token);
       token=response.token;

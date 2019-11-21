@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
-import logo from '../imgs/logo.png';
-import {Form ,Icon,Button,Input,message} from 'antd';
-//引入anxios
-import axios from 'axios'
+import logo from '../../components/imgs/logo.png';
+import {Form ,Icon,Button,Input} from 'antd';
+//引入工厂函数  必须、
+import  {usermeassageAsync} from '../../redux/action-creaters/usermessage'
+//引入connect 接收 action 工厂内的函数
+import {connect} from 'react-redux';
+//引入存储数据方法
+import {setItem} from '../../utils/storage.js'
 import './index.less'
 const {Item} = Form;
 
   //装饰器语法写法
-
+  //connect 传参  前面写需要用到的state 参数/null  后面想需要要到的函数对象  第二个内些组件
+  @connect(null,{usermeassageAsync})
   @Form.create()
  class Login extends Component {
   validator=(rule, value, callback)=>{
@@ -38,23 +43,28 @@ const {Item} = Form;
        //values  获取的值 是一个对象  axios 正好需要一个key value 的对象参数
 
        if(!err){
-         axios.post(`http://localhost:5000/api/login`,values)
-         .then((response)=>{
-           if(response.data.status===0){
+        //  axios.post(`http://localhost:5000/api/login`,values)
+          const {username,password}=values;
+           this.props.usermeassageAsync(username,password)
+          .then((response)=>{
+            console.log(response)
+              setItem('user',response)
+            //登录成功 存储数据
+          //  if(response.data.status===0){
            
               //请求发送成功 用户信息正确   登录成功 跳转页面
-              message.success('登陆成功')
+              // message.success('登陆成功')
               this.props.history.push('/')//跳转到home yemian 
-           }else{
+          //  }else{
               //登录失败 message 从antd上获取  引入
-             message.error(response.data.msg);
+            //  message.error(response.data.msg);
              //清空密码栏
-             this.props.form.resetFields(['password'])
-           }
+            //  this.props.form.resetFields(['password'])
+          //  }
          })
          .catch((err)=>{
-           console.log(err);
-           alert('网络故障')
+          //  console.log(err);
+          //  alert('网络故障')
            this.props.form.resetFields(['password'])
          })
        }
@@ -132,6 +142,8 @@ const {Item} = Form;
     )
   }
 }
+
+
 
 //高阶组件普通用法   这个方法会给this.props 添加一个form属性
 // export default Form.create()(Login);
