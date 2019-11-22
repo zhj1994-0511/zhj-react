@@ -15,7 +15,7 @@ module.exports = override(
   addLessLoader({
     javascriptEnabled: true,
     modifyVars: {
-      '@primary-color': '#fff'
+      '@primary-color': '#f90'
     },
   }),
   //装饰器

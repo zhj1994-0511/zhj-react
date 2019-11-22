@@ -2,6 +2,9 @@ import codeMessage from '../config/code-message.jsx'
 import axios  from 'axios'
 import {message} from 'antd'
 import store from '../redux/store.jsx'
+import {remove} from '../redux/action-creaters/usermessage';
+import {removeItem} from '../utils/storage';
+import history from '../utils/history'
 //axios 的实例对象
 const axiosInstance =axios.create({
   //设置公共的请求地址
@@ -73,6 +76,13 @@ axiosInstance.interceptors.response.use(
      if(error.rensponse){
          //存在返回值意味着响应了有状态码
       errorMessage=codeMessage[error.response.status] ||'weizhi'
+     //清理家的数据   //重定向到登录
+      if(error.rensponse.status===401){
+            removeItem();
+            store.dispatch(remove());
+            history.push('/login')
+
+      }
      }else{
        //检查错误信息是否包含特殊字段
        if (error.message.indexOf('Network Error') !== -1) {

@@ -1,11 +1,14 @@
 import regLogin from '../../api/index'
 //登录请求成功 数据要进行存储 所以引入了登录的函数
-import {USER_MESSAGE}  from '../action-types/usermessage'
+import {USER_MESSAGE,REMOVE}  from '../action-types/usermessage'
 const getuser=(user)=>({
    type:USER_MESSAGE,
    data:user
 })
 
+export const remove =()=>({
+   type:REMOVE
+ })
 //这里创建了type 最好归类于 types 管理
 //action-creater  创建后 reduce要同步r
 

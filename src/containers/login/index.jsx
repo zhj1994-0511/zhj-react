@@ -7,11 +7,14 @@ import  {usermeassageAsync} from '../../redux/action-creaters/usermessage'
 import {connect} from 'react-redux';
 //引入存储数据方法
 import {setItem} from '../../utils/storage.js'
+//引入检查token 方法
+import  checkLogin from '../with-checklogin'
 import './index.less'
 const {Item} = Form;
 
   //装饰器语法写法
   //connect 传参  前面写需要用到的state 参数/null  后面想需要要到的函数对象  第二个内些组件
+ @checkLogin
   @connect(null,{usermeassageAsync})
   @Form.create()
  class Login extends Component {
@@ -45,7 +48,9 @@ const {Item} = Form;
        if(!err){
         //  axios.post(`http://localhost:5000/api/login`,values)
           const {username,password}=values;
+
            this.props.usermeassageAsync(username,password)
+           
           .then((response)=>{
             console.log(response)
               setItem('user',response)
