@@ -2,7 +2,7 @@
 
 import axiosInstance from './request';
 
-  const reqLogin =(username,password)=>{
+ export const reqLogin =(username,password)=>{
  return  axiosInstance({
     method:'POST',
     url:'/login',
@@ -12,16 +12,11 @@ import axiosInstance from './request';
     }
   })
 }
-  export default reqLogin
+  
+ export const GetCategories = () => axiosInstance({
+  method: 'GET',
+  url: '/category/get',
+})
 
 
-//  export const reqLogin =(username,password)=>axiosInstance({
-//        method:'POST',
-//        url:'/login',
-//        data:{
-//          username:username,
-//          password:password
-//        }
-//      })
-  //此种暴露对应接受方式不同 注意不要混用
-    
+ 

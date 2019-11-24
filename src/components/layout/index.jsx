@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import LeftNav  from '../home-sider'
+import Head from '../content-header'
 import './index.less'
 import  checkLogin from '../../containers/with-checklogin'
 import { Layout} from 'antd';
-
 
 const { Header, Content, Footer ,Sider} = Layout;
 
@@ -11,11 +11,14 @@ const { Header, Content, Footer ,Sider} = Layout;
 class BaseLayout extends Component {
   state = {
     collapsed: false,
+    isDisplay:true
   };
 
   onCollapse = collapsed => {
     console.log(collapsed);
-    this.setState({ collapsed });
+    this.setState({ collapsed ,
+    isDisplay:!this.state.isDisplay
+    });
   };
 
   render() {
@@ -26,11 +29,13 @@ class BaseLayout extends Component {
           collapsed={this.state.collapsed}
           onCollapse={this.onCollapse}
         >
-          <LeftNav />
+          <LeftNav  isDisplay={this.state.isDisplay}/>
         </Sider>
         <Layout>
-          <Header style={{ background: '#fff', padding: 0 }} />
-          <Content style={{ margin: '0 16px' }}>
+          <Header style={{ background: '#fff', padding: 0 }} >
+          <Head/>
+          </Header>
+          <Content style={{ margin: '80px 16px 0 0' }}>
             {/* <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>User</Breadcrumb.Item>
               <Breadcrumb.Item>Bill</Breadcrumb.Item>

@@ -1,4 +1,4 @@
-import regLogin from '../../api/index'
+import {reqLogin} from '../../api/index'
 //登录请求成功 数据要进行存储 所以引入了登录的函数
 import {USER_MESSAGE,REMOVE}  from '../action-types/usermessage'
 const getuser=(user)=>({
@@ -14,7 +14,7 @@ export const remove =()=>({
 
 export const usermeassageAsync=(username,password)=>{
   return (dispatch)=>{
-     return regLogin(username,password)
+     return reqLogin(username,password)
     //由于relogin 是实例axios的函数，所以这里的返回值是经过实例处理过的 实际上是包含token ,user的那个data
     //这里进入then 代表成功登录
     .then((response)=>{

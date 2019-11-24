@@ -4,11 +4,16 @@ import menus from '../../config/menus.jsx'
 import {  Menu,Icon} from 'antd';
 import { Link ,withRouter} from "react-router-dom";
 import './index.less'
+import propTypes from 'prop-types'
 const { SubMenu } = Menu;
 
 
 @withRouter //这个高阶组件能够给非路由组件传递 路由组件的三大属性  loaction  match   history
 class LeftNav extends Component {
+
+  static propTypes={
+    isDisplay:propTypes.bool.isRequired
+  }
   state ={
     menu:[]
   }
@@ -102,7 +107,7 @@ componentDidMount(){
       <div>
       <header className='sider'>
         <img src={logo} alt="logo" />
-        <h1>GUIGU</h1>
+        <h1  style={{display:this.props.isDisplay?'block':'none'}}>GUIGU</h1>
       </header>
            <Menu theme="dark" defaultSelectedKeys={[pathname]} mode="inline"  defaultOpenKeys={[openkey]}>
             {
