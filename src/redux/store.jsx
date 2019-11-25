@@ -7,7 +7,7 @@ import thunk from 'redux-thunk'
 import reducer from './reducers'
 
 
-const middleware=process.env.NOOD_ENV==='development'?composeWithDevTools(applyMiddleware(thunk)):applyMiddleware(thunk)
+const middleware=process.env.NODE_ENV==='development'?composeWithDevTools(applyMiddleware(thunk)):applyMiddleware(thunk)
 
 
 export default createStore(reducer,middleware)

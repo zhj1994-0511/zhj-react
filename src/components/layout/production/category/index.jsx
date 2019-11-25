@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Card, Table ,Button,Icon} from 'antd';
-// import tabledata from '../../../../config/tabledata'
+ import tabledata from '../../../../config/tabledata'
 import {connect} from 'react-redux';
 import  {getCategoryAsync}  from '../../../../redux/action-creaters/category.js'
 // import category from '../../../../redux/reducers/category';
@@ -10,11 +10,10 @@ import  {getCategoryAsync}  from '../../../../redux/action-creaters/category.js'
    class Category extends Component {
      
     changedata=(data)=>{
-      data.map((item,index)=>{
+      data.map((item)=>{
         return  {
-         key: index,
-         name: '1111111',
-         address: 'Sidney No. 1 Lake Park'
+         key: item._id,
+         name: item.name,
         }
       })
     }
@@ -23,21 +22,19 @@ import  {getCategoryAsync}  from '../../../../redux/action-creaters/category.js'
     this.props.getCategoryAsync()
   }
 
-    onChange=(pagination, filters, sorter, extra)=> {
-      console.log('params', pagination, filters, sorter, extra);
-    }
+    
   
    render(){
 //列 
-    const onChange=this.onChange;
+    
     const columns = [
       {
-        title: 'Name',
-        dataIndex: 'address',
+        title: '品类名称',
+        dataIndex: 'name',
       },
       {
-        title: 'Address',
-        dataIndex: 'address',
+        title: '操作',
+      
          render(){
            return (
              <div>
@@ -48,16 +45,19 @@ import  {getCategoryAsync}  from '../../../../redux/action-creaters/category.js'
          }
       },
     ];
-      const  data= this.changedata(this.props.categories)
-      
-    onChange()
+      // const  data= this.changedata(this.props.categories)
+      // console.log(this.props.categories)
+      //疑问  为什么转换后没有生效
+      // const data=tabledata
      return (
       
         <Card title='分类列表'
         extra={<Button><Icon type='plus'/>添加分类</Button>}
         >
        
-        <Table columns={columns} dataSource={data} onChange={onChange} pagination={{pageSize:2,showQuickJumper:true}}/>
+        <Table columns={columns} dataSource={this.props.categories}  pagination={{pageSize:2,showQuickJumper:true}}
+              rowKey="_id"
+        />
 
 
        </Card>  

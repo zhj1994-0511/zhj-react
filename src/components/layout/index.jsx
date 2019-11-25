@@ -44,6 +44,7 @@ class BaseLayout extends Component {
            
             {/* <Home/> */}
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+              {/* 展示某一个组件下的所有子组件*/}
               {this.props.children}
             </div>
           </Content>
